@@ -1,5 +1,6 @@
 package com.expense.expense_tracking.src.backend.model.user;
 
+import com.expense.expense_tracking.src.backend.data.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

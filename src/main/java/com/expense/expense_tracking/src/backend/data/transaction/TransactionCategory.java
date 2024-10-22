@@ -1,5 +1,6 @@
-package com.expense.expense_tracking.src.backend.model.transaction;
+package com.expense.expense_tracking.src.backend.data.transaction;
 
+import com.expense.expense_tracking.src.app.config.TransactionType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -8,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "TransactionCategory")
@@ -20,10 +23,6 @@ public class TransactionCategory {
     private long id;
     private String name;
     private TransactionType type;
+    private Date createdAt = new Date();
 
-
-    public enum TransactionType {
-        INCOME,
-        EXPENSE
-    }
 }

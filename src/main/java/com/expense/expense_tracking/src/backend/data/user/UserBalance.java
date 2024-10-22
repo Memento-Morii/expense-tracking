@@ -1,4 +1,4 @@
-package com.expense.expense_tracking.src.backend.model.user;
+package com.expense.expense_tracking.src.backend.data.user;
 
 import com.expense.expense_tracking.src.app.config.Status;
 import jakarta.persistence.*;
@@ -13,7 +13,8 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserBalance {
+public class
+UserBalance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

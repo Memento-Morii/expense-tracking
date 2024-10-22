@@ -18,7 +18,8 @@ public enum ApiErrorCode {
     EMAIL_INVALID(1264),
     EMAIL_ALREADY_REGISTERED(1265),
     ACCOUNT_WITH_EMAIL_NOT_FOUND(1266),
-    OTP_INVALID(1262);
+    OTP_INVALID(1262),
+    USER_BALANCE_LOW(1300);
 
 
     private int code;
