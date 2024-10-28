@@ -1,4 +1,4 @@
-package com.expense.expense_tracking.src.common;
+package com.expense.expense_tracking.src.app.common.utils;
 
 public class StringUtil {
     public static boolean isNullEmpty(String value) {

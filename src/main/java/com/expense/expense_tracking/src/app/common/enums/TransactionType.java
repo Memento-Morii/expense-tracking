@@ -1,4 +1,4 @@
-package com.expense.expense_tracking.src.app.config;
+package com.expense.expense_tracking.src.app.common.enums;
 
 public enum TransactionType {
     INCOME("INCOME"),

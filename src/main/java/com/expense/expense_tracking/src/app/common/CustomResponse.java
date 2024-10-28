@@ -1,5 +1,6 @@
-package com.expense.expense_tracking.src.common;
+package com.expense.expense_tracking.src.app.common;
 
+import com.expense.expense_tracking.src.app.common.enums.ApiErrorCode;
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.List;

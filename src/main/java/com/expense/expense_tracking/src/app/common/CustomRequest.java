@@ -1,6 +1,5 @@
-package com.expense.expense_tracking.src.common;
+package com.expense.expense_tracking.src.app.common;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

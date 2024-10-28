@@ -1,4 +1,4 @@
-package com.expense.expense_tracking.src.common;
+package com.expense.expense_tracking.src.app.common;
 
 public class Constants {
     public static final int DEFAULT_PAGE_INDEX = 0;
