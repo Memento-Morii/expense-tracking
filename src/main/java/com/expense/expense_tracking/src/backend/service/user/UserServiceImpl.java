@@ -3,20 +3,19 @@ package com.expense.expense_tracking.src.backend.service.user;
 import com.expense.expense_tracking.src.backend.data.user.User;
 import com.expense.expense_tracking.src.backend.data.user.UserBalance;
 import com.expense.expense_tracking.src.backend.model.user.*;
-import com.expense.expense_tracking.src.common.ApiErrorCode;
-import com.expense.expense_tracking.src.common.SecurityConfig;
-import com.expense.expense_tracking.src.common.StringUtil;
+import com.expense.expense_tracking.src.app.common.enums.ApiErrorCode;
+import com.expense.expense_tracking.src.app.common.utils.StringUtil;
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -85,9 +84,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                     user = userRepository.save(User.fromUserDto(request.getUser()));
 
                     // create new user balance
-                    UserBalance userBalance = new UserBalance();
-                    userBalance.setUser(user);
-                    userBalance.setAmount(0);
+                    UserBalance userBalance = UserBalance.builder()
+                            .user(user)
+                            .amount(0.0)
+                            .build();
                     userBalanceRepository.save(userBalance);
 
                     UserDto userDto = User.toUserDto(user);
@@ -106,6 +106,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserResponse userProfile(UserRequest request) {
         UserResponse.Builder responseBuilder = UserResponse.newBuilder();
+        //TODO: User Profile API isn't needed for now
         responseBuilder.withAddError(ApiErrorCode.RUNTIME_ERROR);
 
         return responseBuilder.build();

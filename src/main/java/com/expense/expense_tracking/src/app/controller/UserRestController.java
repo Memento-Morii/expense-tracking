@@ -1,8 +1,10 @@
 package com.expense.expense_tracking.src.app.controller;
 
+import com.expense.expense_tracking.src.app.common.enums.ApiErrorCode;
 import com.expense.expense_tracking.src.backend.model.user.UserRequest;
 import com.expense.expense_tracking.src.backend.model.user.UserResponse;
 import com.expense.expense_tracking.src.backend.service.user.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +18,7 @@ public class UserRestController {
         return userService.login(request);
     }
     @PostMapping("/signup")
-    public UserResponse signup (@RequestBody UserRequest request){
+    public UserResponse signup (@RequestBody @Valid UserRequest request){
         return userService.signup(request);
     }
     @GetMapping("/profile")

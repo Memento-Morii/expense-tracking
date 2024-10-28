@@ -1,6 +1,6 @@
 package com.expense.expense_tracking.src.backend.data.user;
 
-import com.expense.expense_tracking.src.app.config.Status;
+import com.expense.expense_tracking.src.app.common.enums.Status;
 import com.expense.expense_tracking.src.backend.model.user.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,7 +22,9 @@ public class User {
     private String emailAddress;
     private String phoneNumber;
     private String password;
+    @Builder.Default
     private Date createdAt = new Date();
+    @Builder.Default
     private Status status = Status.ACTIVE;
 
     public static UserDto toUserDto(User user) {

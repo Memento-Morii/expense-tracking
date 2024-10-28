@@ -1,6 +1,6 @@
 package com.expense.expense_tracking.src.backend.data.transaction;
 
-import com.expense.expense_tracking.src.app.config.TransactionType;
+import com.expense.expense_tracking.src.app.common.enums.TransactionType;
 import com.expense.expense_tracking.src.backend.data.user.User;
 import com.expense.expense_tracking.src.backend.model.transaction.TransactionDto;
 import jakarta.persistence.*;
@@ -29,6 +29,7 @@ public class Transaction {
     @JoinColumn(name = "categoryId")
     private TransactionCategory category;
     private TransactionType type;
+    @Builder.Default
     private Date createdAt = new Date();
 
 

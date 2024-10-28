@@ -1,6 +1,6 @@
 package com.expense.expense_tracking.src.backend.model.user;
-import com.expense.expense_tracking.src.common.CustomResponse;
-import com.expense.expense_tracking.src.common.IBuilder;
+import com.expense.expense_tracking.src.app.common.CustomResponse;
+import com.expense.expense_tracking.src.app.common.IBuilder;
 
 public class UserResponse extends CustomResponse {
     private UserDto user;

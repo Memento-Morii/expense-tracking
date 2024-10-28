@@ -1,7 +1,6 @@
 package com.expense.expense_tracking.src.backend.model.transaction;
 
-import com.expense.expense_tracking.src.app.config.TransactionType;
-import com.expense.expense_tracking.src.backend.data.transaction.Transaction;
+import com.expense.expense_tracking.src.app.common.enums.TransactionType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

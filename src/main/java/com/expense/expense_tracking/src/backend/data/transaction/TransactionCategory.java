@@ -1,6 +1,6 @@
 package com.expense.expense_tracking.src.backend.data.transaction;
 
-import com.expense.expense_tracking.src.app.config.TransactionType;
+import com.expense.expense_tracking.src.app.common.enums.TransactionType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

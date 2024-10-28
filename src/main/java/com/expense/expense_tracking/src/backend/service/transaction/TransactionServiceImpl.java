@@ -1,14 +1,14 @@
 package com.expense.expense_tracking.src.backend.service.transaction;
 
-import com.expense.expense_tracking.src.app.config.Status;
-import com.expense.expense_tracking.src.app.config.TransactionType;
+import com.expense.expense_tracking.src.app.common.enums.Status;
+import com.expense.expense_tracking.src.app.common.enums.TransactionType;
 import com.expense.expense_tracking.src.backend.data.transaction.Transaction;
 import com.expense.expense_tracking.src.backend.data.user.User;
 import com.expense.expense_tracking.src.backend.data.user.UserBalance;
 import com.expense.expense_tracking.src.backend.model.transaction.TransactionRepository;
 import com.expense.expense_tracking.src.backend.model.user.UserBalanceRepository;
 import com.expense.expense_tracking.src.backend.model.user.UserRepository;
-import com.expense.expense_tracking.src.common.ApiErrorCode;
+import com.expense.expense_tracking.src.app.common.enums.ApiErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;

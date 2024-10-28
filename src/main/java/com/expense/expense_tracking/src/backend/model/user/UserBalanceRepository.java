@@ -1,6 +1,6 @@
 package com.expense.expense_tracking.src.backend.model.user;
 
-import com.expense.expense_tracking.src.app.config.Status;
+import com.expense.expense_tracking.src.app.common.enums.Status;
 import com.expense.expense_tracking.src.backend.data.user.UserBalance;
 import org.springframework.data.jpa.repository.JpaRepository;
 

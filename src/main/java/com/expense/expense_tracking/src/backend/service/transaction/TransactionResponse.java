@@ -1,8 +1,8 @@
 package com.expense.expense_tracking.src.backend.service.transaction;
 
 import com.expense.expense_tracking.src.backend.model.transaction.TransactionDto;
-import com.expense.expense_tracking.src.common.CustomResponse;
-import com.expense.expense_tracking.src.common.IBuilder;
+import com.expense.expense_tracking.src.app.common.CustomResponse;
+import com.expense.expense_tracking.src.app.common.IBuilder;
 
 import java.util.List;
 
