@@ -4,7 +4,10 @@ import com.expense.expense_tracking.src.app.common.enums.Status;
 import com.expense.expense_tracking.src.backend.model.user.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -14,7 +17,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -32,7 +35,7 @@ public class User {
                 .phoneNumber(user.getPhoneNumber())
                 .fullName(user.getFullName())
                 .emailAddress(user.getEmailAddress())
-                .password(user.getPassword())
+//                .password(user.getPassword())
                 .build();
     }
     public static User fromUserDto (UserDto dto) {
@@ -43,6 +46,16 @@ public class User {
                 .phoneNumber(dto.getPhoneNumber())
                 .password(dto.getPassword())
                 .build();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.emailAddress;
     }
 }
 

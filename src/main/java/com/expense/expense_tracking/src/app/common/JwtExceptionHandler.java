@@ -46,16 +46,16 @@ public class JwtExceptionHandler {
 
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
-        ErrorResponse errorResponse = new ErrorResponse();
-
-        errorResponse.setMessage("Internal server error");
-        errorResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value()); 
-
-        // Log the exception for debugging purposes
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
+//        ErrorResponse errorResponse = new ErrorResponse();
+//
+//        errorResponse.setMessage("Internal server error");
+//        errorResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+//
+//        // Log the exception for debugging purposes
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+//    }
     @Data
     static class ErrorResponse {
         private String message;

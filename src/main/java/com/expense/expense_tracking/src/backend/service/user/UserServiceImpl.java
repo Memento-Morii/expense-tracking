@@ -6,16 +6,15 @@ import com.expense.expense_tracking.src.backend.model.user.*;
 import com.expense.expense_tracking.src.app.common.enums.ApiErrorCode;
 import com.expense.expense_tracking.src.app.common.utils.StringUtil;
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -30,6 +29,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private UserBalanceRepository userBalanceRepository;
+
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
     @Override
     public UserResponse login(UserRequest request) {
         UserResponse.Builder responseBuilder = UserResponse.newBuilder();
@@ -45,25 +46,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (responseBuilder.hasError()) {
             return responseBuilder.build();
         }
-        User user = null;
+        User loginUser = null;
         try {
-            Optional<User> loginUser = userRepository.
-                    findByEmailAddressAndPassword(request.getUser().getEmailAddress(),password);
-            if (! loginUser.isPresent()) {
+             loginUser =
+                    loadUserByUsername(request.getUser().getEmailAddress());
+            if (loginUser == null) {
                 responseBuilder.withAddError(ApiErrorCode.UNABLE_TO_LOGIN);
                 return responseBuilder.build();
             }
-            user = loginUser.get();
         } catch (Exception e) {
             responseBuilder.withAddError(ApiErrorCode.RUNTIME_ERROR);
         }
         UserDto newUser = UserDto.builder()
-                .emailAddress(user.getEmailAddress())
-                .password(user.getPassword())
-                .fullName(user.getFullName())
-                .phoneNumber(user.getPhoneNumber())
+                .emailAddress(loginUser.getEmailAddress())
+                .fullName(loginUser.getFullName())
+                .phoneNumber(loginUser.getPhoneNumber())
                 .build();
-        String jwtToken = createJwtToken(user);
+        String jwtToken = createJwtToken(loginUser);
         newUser.setAuthToken(jwtToken);
         responseBuilder.withUser(newUser);
         return responseBuilder.build();
@@ -75,11 +74,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = null;
         if (!responseBuilder.hasError()) {
             try {
-                Optional<User> existingUser =
-                        userRepository.findByEmailAddress(request.getUser().getEmailAddress());
-                if (existingUser.isPresent()) {
+                UserDetails existingUser =
+                        loadUserByUsername(request.getUser().getEmailAddress());
+                if (existingUser != null) {
                     responseBuilder.withAddError(ApiErrorCode.EMAIL_ALREADY_REGISTERED);
                 } else {
+                    //encrypt user password
+                    String userPassword = request.getUser().getPassword();
+                    request.getUser().setPassword(encoder.encode(userPassword));
+
                     // create a user entity
                     user = userRepository.save(User.fromUserDto(request.getUser()));
 
@@ -113,14 +116,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
             Optional<User> existingUser = userRepository.findByEmailAddress(username);
             if (existingUser.isPresent()) {
-                return org.springframework.security.core.userdetails.User
-                        .withUsername(existingUser.get().getEmailAddress())
-                        .password(existingUser.get().getPassword())
-                        .build();
+                return existingUser.get();
             }
         }
         catch (Exception e){

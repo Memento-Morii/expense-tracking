@@ -55,7 +55,7 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(UserServiceImpl userService) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userService);
-        provider.setPasswordEncoder(new BCryptPasswordEncoder());
+        provider.setPasswordEncoder(new BCryptPasswordEncoder(12));
 
         return new ProviderManager(provider);
     }
